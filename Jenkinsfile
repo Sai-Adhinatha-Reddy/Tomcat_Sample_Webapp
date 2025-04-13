@@ -11,7 +11,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'cp /var/lib/jenkins/workspace/Web-App/basic.war ~/apache-tomcat-11.0.6/webapps/'
+                sh 'cp /var/lib/jenkins/workspace/Web-App/basic.war apache-tomcat-11.0.6/webapps/'
             }
         }
     }
