@@ -3,12 +3,12 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'jar -cvf sample.war *'
+                sh 'jar -cvf basic.war *'
             }
         }
         stage('Deploy') {
             steps {
-                sh 'cp sample.war /tomcat/apache-tomcat-10.1.13/webapps/'
+                sh 'cp basic.war /tomcat/apache-tomcat-10.1.13/webapps/'
             }
         }
     }
