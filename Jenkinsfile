@@ -8,7 +8,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'cp basic.war /tomcat/apache-tomcat-10.1.13/webapps/'
+                sh 'cp basic.war /tomcat/apache-tomcat-11.0.6/webapps/'
             }
         }
     }
