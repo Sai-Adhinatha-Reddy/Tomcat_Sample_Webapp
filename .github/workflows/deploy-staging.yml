@@ -19,7 +19,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Build WAR file
-      run: jar -cvf sample.war *
+      run: jar -cvf staging.war *
 
     - name: Deploy WAR to Tomcat via SCP
       uses: appleboy/scp-action@v0.1.7
@@ -27,5 +27,5 @@ jobs:
         host: ${{ secrets.TOMCAT_HOST }}
         username: ${{ secrets.TOMCAT_USER }}
         key: ${{ secrets.TOMCAT_KEY }}
-        source: "sample.war"
+        source: "staging.war"
         target: ${{ secrets.TOMCAT_PATH }}
