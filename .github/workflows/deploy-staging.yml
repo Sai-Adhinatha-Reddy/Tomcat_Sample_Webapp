@@ -19,7 +19,7 @@ jobs:
         distribution: 'temurin'
 
     - name: Build WAR file
-      run: jar -cvf sample.war *
+      run: jar -cvf sample1.war *
 
     - name: Deploy WAR to Tomcat via SCP
       uses: appleboy/scp-action@v0.1.7
