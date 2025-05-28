@@ -1,0 +1,38 @@
+name: Build and Deploy WAR to Tomcat
+
+on:
+  push:
+    branches:
+      - staging
+      - production
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Set up Java
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Build WAR file
+      run: |
+        if [ "${{ github.ref_name }}" = "staging" ]; then
+          jar -cvf staging.war *
+        elif [ "${{ github.ref_name }}" = "production" ]; then
+          jar -cvf production.war *
+        fi
+
+    - name: Deploy WAR to Tomcat via SCP
+      uses: appleboy/scp-action@v0.1.7
+      with:
+        host: ${{ github.ref_name == 'staging' && secrets.TOMCAT_HOST_STAGE || secrets.TOMCAT_HOST_PROD }}
+        username: ${{ github.ref_name == 'staging' && secrets.TOMCAT_USER_STAGE || secrets.TOMCAT_USER_PROD }}
+        key: ${{ github.ref_name == 'staging' && secrets.TOMCAT_KEY_STAGE || secrets.TOMCAT_KEY_PROD }}
+        source: ${{ github.ref_name == 'staging' && 'staging.war' || 'production.war' }}
+        target: ${{ github.ref_name == 'staging' && secrets.TOMCAT_PATH_STAGE || secrets.TOMCAT_PATH_PROD }}
