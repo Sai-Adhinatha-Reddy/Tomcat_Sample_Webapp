@@ -17,7 +17,7 @@ application.
 </tr>
 </table>
 
-<%= new String("Hello Welcome to staging environment!") %>
+<%= new String("Hello Welcome to staging environment on 05/28/2025!") %>
 
 </body>
 </html>
